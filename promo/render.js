@@ -1,16 +1,16 @@
 // Renders promo.html frame by frame and muxes it with the voiceover.
-// Usage: node render.js <voiceover.mp3> <music.wav> <out.mp4>  (music.wav comes from music.py)
+// Usage: node render.js <voiceover.mp3> <music.wav> <out.mp4> [he|en]  (music.wav comes from music.py)
 const { chromium } = require('playwright');
 const { spawn } = require('child_process');
 const path = require('path');
 
 const FPS = 30;
-const [voice, music, out] = process.argv.slice(2);
+const [voice, music, out, lang = 'he'] = process.argv.slice(2);
 
 (async () => {
   const browser = await chromium.launch({ executablePath: '/opt/pw-browsers/chromium' });
   const page = await browser.newPage({ viewport: { width: 540, height: 960 }, deviceScaleFactor: 2 });
-  await page.goto('file://' + path.join(__dirname, 'promo.html'));
+  await page.goto('file://' + path.join(__dirname, 'promo.html') + '?lang=' + lang);
   await page.evaluate(() => document.fonts.ready);
   const total = await page.evaluate(() => window.TOTAL);
   const frames = Math.round(total * FPS);
