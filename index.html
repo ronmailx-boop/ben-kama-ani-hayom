@@ -33,6 +33,7 @@
 
   <div class="container">
     <header>
+      <button class="help-btn" id="helpBtn" type="button" aria-label="איך משתמשים?" title="איך משתמשים?">?</button>
       <h1>
         <svg class="logo-clock" viewBox="0 0 116 116" aria-hidden="true">
           <circle cx="58" cy="58" r="47" fill="#fdf4e3" stroke="#0f0e17" stroke-width="16" />
@@ -97,6 +98,14 @@
         <button class="btn-confirm" id="confirmBtn">הוסף</button>
         <button class="btn-cancel" id="cancelBtn">ביטול</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Usage guide video -->
+  <div class="modal-overlay hidden" id="guideOverlay">
+    <div class="guide">
+      <button class="guide-close" id="guideClose" type="button" aria-label="סגור">✕</button>
+      <video id="guideVideo" src="media/guide.mp4" poster="media/guide-poster.jpg" controls playsinline preload="none"></video>
     </div>
   </div>
 

@@ -26,6 +26,11 @@ const confirmBtn    = document.getElementById('confirmBtn');
 const cancelBtn     = document.getElementById('cancelBtn');
 const modalError    = document.getElementById('modalError');
 
+const helpBtn       = document.getElementById('helpBtn');
+const guideOverlay  = document.getElementById('guideOverlay');
+const guideVideo    = document.getElementById('guideVideo');
+const guideClose    = document.getElementById('guideClose');
+
 const popup         = document.getElementById('popup');
 const popupText     = document.getElementById('popupText');
 
@@ -38,7 +43,10 @@ cancelBtn.addEventListener('click', closeModal);
 confirmBtn.addEventListener('click', handleAdd);
 deleteBtn.addEventListener('click', handleDelete);
 modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+helpBtn.addEventListener('click', openGuide);
+guideClose.addEventListener('click', closeGuide);
+guideOverlay.addEventListener('click', e => { if (e.target === guideOverlay) closeGuide(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeGuide(); } });
 
 // set max date to today
 inputDate.max = todayStr();
@@ -138,6 +146,18 @@ function closeModal() {
 function showError(msg) {
   modalError.textContent = msg;
   modalError.classList.remove('hidden');
+}
+
+// ── Usage guide video ─────────────────────────────────────────────────────────
+function openGuide() {
+  guideOverlay.classList.remove('hidden');
+  guideVideo.currentTime = 0;
+  guideVideo.play().catch(() => {});   // autoplay may be blocked; controls stay available
+}
+
+function closeGuide() {
+  guideVideo.pause();
+  guideOverlay.classList.add('hidden');
 }
 
 // ── Popup toast ───────────────────────────────────────────────────────────────
