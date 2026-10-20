@@ -113,14 +113,14 @@
   </div>
 
   <div class="layer" id="hook">
-    <div class="q" id="hq">בני כמה אתם היום?</div>
+    <div class="q" id="hq"></div>
     <svg class="clock" id="hclock" width="150" height="150" viewBox="0 0 116 116" style="filter: drop-shadow(0 0 22px rgba(247,168,35,0.55))">
       <circle class="face" cx="58" cy="58" r="47" stroke-width="16" />
       <line id="hh" x1="58" y1="58" x2="58" y2="30" stroke="#0f0e17" stroke-width="10" stroke-linecap="round" />
       <line id="hm" x1="58" y1="58" x2="58" y2="22" stroke="#ff4d8d" stroke-width="8" stroke-linecap="round" />
       <circle cx="58" cy="58" r="7" fill="#0f0e17" />
     </svg>
-    <div class="a" id="ha">לא בערך — <b>בדיוק.</b></div>
+    <div class="a" id="ha"></div>
   </div>
 
   <div class="layer" id="logo">
@@ -154,7 +154,7 @@
             </svg>
             AgeNow
           </h1>
-          <div class="sub">הוסף אנשים וגלה את גילם המדויק</div>
+          <div class="sub" id="asub"></div>
         </header>
         <div class="tabs-row">
           <div class="tabs" id="tabs"></div>
@@ -165,17 +165,17 @@
             <div class="ic">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#a7a9be" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 4-6 8-6s8 2 8 6" /></svg>
             </div>
-            לחץ על <b>+</b> כדי להוסיף אדם ראשון
+            <span id="aempty"></span>
           </div>
           <div class="person" id="person">
             <div class="avatar" id="av"></div>
             <h2 id="pname"></h2>
             <div class="blocks">
-              <div class="blk"><span class="num" id="ny"></span><span class="lbl">שנים</span></div>
+              <div class="blk"><span class="num" id="ny"></span><span class="lbl" id="ly"></span></div>
               <div class="sep">·</div>
-              <div class="blk"><span class="num" id="nm"></span><span class="lbl">חודשים</span></div>
+              <div class="blk"><span class="num" id="nm"></span><span class="lbl" id="lmo"></span></div>
               <div class="sep">·</div>
-              <div class="blk"><span class="num" id="nd"></span><span class="lbl">ימים</span></div>
+              <div class="blk"><span class="num" id="nd"></span><span class="lbl" id="ld"></span></div>
             </div>
             <div class="born" id="born"></div>
           </div>
@@ -183,10 +183,10 @@
       </div>
       <div class="overlay" id="overlay">
         <div class="modal" id="modal">
-          <h3>➕ הוסף אדם חדש</h3>
-          <div class="field">שם<div class="input" id="in1"></div></div>
-          <div class="field">תאריך לידה<div class="input" id="in2" style="direction: ltr; justify-content: flex-end"></div></div>
-          <div class="actions"><div class="btn ok" id="okbtn">הוסף</div><div class="btn no">ביטול</div></div>
+          <h3 id="mt"></h3>
+          <div class="field"><span id="fn"></span><div class="input" id="in1"></div></div>
+          <div class="field"><span id="fd"></span><div class="input" id="in2" style="direction: ltr"></div></div>
+          <div class="actions"><div class="btn ok" id="okbtn"></div><div class="btn no" id="nobtn"></div></div>
         </div>
       </div>
       <div class="toast" id="toast"></div>
@@ -200,7 +200,7 @@
       <path d="M8 10V7a4 4 0 0 1 8 0v3" />
       <circle cx="12" cy="15.5" r="1.6" fill="#f7a823" />
     </svg>
-    <div class="t1" id="pt">הכול נשמר<br><span>רק אצלכם בטלפון</span></div>
+    <div class="t1" id="pt"></div>
   </div>
 
   <div class="layer" id="end">
@@ -217,36 +217,94 @@
         <div class="w">W</div>
       </div>
     </div>
-    <div class="tag" id="etag">הגיל שלכם — <span>עכשיו.</span></div>
+    <div class="tag" id="etag"></div>
   </div>
 
   <div id="cap"><span id="capt"></span></div>
 
 <script>
-// ── Timeline (seconds). Tuned to the voiceover; see promo/README.md ─────────
-const T = window.TIMING || {
-  hookQ: 0.0, hookA: 1.85, logo: 3.9, phone: 5.3,
-  tapPlus: 6.2, typeName: 6.95, typeDate: 7.5, tapAdd: 8.7,
-  result: 8.9, adds: [12.55, 14.75, 15.45, 16.4], privacy: 17.85, end: 20.6, total: 25.0,
+// ── Content per language: promo.html?lang=he (default) or ?lang=en ─────────
+// Scene times (T) and captions are tuned to each language's voiceover word timings.
+const CONTENT = {
+  he: {
+    dir: 'rtl',
+    T: {
+      hookQ: 0.0, hookA: 1.85, logo: 3.9, phone: 5.3,
+      tapPlus: 6.2, typeName: 6.95, typeDate: 7.5, tapAdd: 8.7,
+      result: 8.9, adds: [12.55, 14.75, 15.45, 16.4], privacy: 17.85, end: 20.6, total: 25.0,
+    },
+    // on-screen text already says the hook and the end card, so no captions there
+    captions: [
+      [4.0, 5.5, 'הכירו את AgeNow'],
+      [5.55, 8.6, 'לוחצים על הפלוס, כותבים שם ותאריך לידה…'],
+      [8.85, 12.25, 'ובום! שנים, חודשים וימים — ברגע אחד'],
+      [12.4, 16.1, 'מוסיפים עד 5 אנשים: הילדים, בן הזוג, סבתא'],
+      [16.1, 17.75, 'כל אחד בלשונית משלו'],
+      [17.85, 20.55, 'והכול נשמר רק אצלכם, בטלפון'],
+    ],
+    people: [
+      { name: 'נועה', typed: '14/03/2016', born: '14/03/2016', age: [10, 7, 6] },
+      { name: 'איתי', born: '02/07/2012', age: [14, 3, 18] },
+      { name: 'יואב', born: '23/11/1988', age: [37, 10, 27] },
+      { name: 'סבתא רחל', born: '05/01/1951', age: [75, 9, 15] },
+      { name: 'אני', born: '08/08/1990', age: [36, 2, 12] },
+    ],
+    html: {
+      hq: 'בני כמה אתם היום?', ha: 'לא בערך — <b>בדיוק.</b>',
+      asub: 'הוסף אנשים וגלה את גילם המדויק', aempty: 'לחץ על <b>+</b> כדי להוסיף אדם ראשון',
+      ly: 'שנים', lmo: 'חודשים', ld: 'ימים',
+      mt: '➕ הוסף אדם חדש', fn: 'שם', fd: 'תאריך לידה', okbtn: 'הוסף', nobtn: 'ביטול',
+      pt: 'הכול נשמר<br><span>רק אצלכם בטלפון</span>', etag: 'הגיל שלכם — <span>עכשיו.</span>',
+    },
+    born: d => 'תאריך לידה: ' + d,
+    toast: a => `גיל ${a[0]}, ${a[1]} חודשים, ${a[2]} ימים`,
+  },
+  en: {
+    dir: 'ltr',
+    T: {
+      hookQ: 0.0, hookA: 1.8, logo: 4.3, phone: 5.6,
+      tapPlus: 6.2, typeName: 6.9, typeDate: 7.5, tapAdd: 8.5,
+      result: 8.7, adds: [12.7, 14.9, 15.7, 16.5], privacy: 18.35, end: 20.65, total: 25.0,
+    },
+    captions: [
+      [4.35, 5.6, 'Meet AgeNow'],
+      [5.85, 8.6, 'Tap +, type a name and a date of birth…'],
+      [8.65, 12.4, 'And boom! Years, months and days — in a second'],
+      [12.6, 16.3, 'Add up to 5 people: the kids, your partner, Grandma'],
+      [16.4, 18.2, 'Each one gets their own tab'],
+      [18.35, 20.5, 'And everything stays right on your phone'],
+    ],
+    people: [
+      { name: 'Noa', typed: '03/14/2016', born: 'Mar 14, 2016', age: [10, 7, 6] },
+      { name: 'Ethan', born: 'Jul 2, 2012', age: [14, 3, 18] },
+      { name: 'Mike', born: 'Nov 23, 1988', age: [37, 10, 27] },
+      { name: 'Grandma', born: 'Jan 5, 1951', age: [75, 9, 15] },
+      { name: 'Me', born: 'Aug 8, 1990', age: [36, 2, 12] },
+    ],
+    html: {
+      hq: 'How old are you today?', ha: 'Not roughly — <b>exactly.</b>',
+      asub: 'Add people and see their exact age', aempty: 'Tap <b>+</b> to add your first person',
+      ly: 'years', lmo: 'months', ld: 'days',
+      mt: '➕ Add a person', fn: 'Name', fd: 'Date of birth', okbtn: 'Add', nobtn: 'Cancel',
+      pt: 'Everything stays<br><span>right on your phone</span>', etag: 'Your age — <span>right now.</span>',
+    },
+    born: d => 'Born: ' + d,
+    toast: a => `Age ${a[0]} · ${a[1]} months · ${a[2]} days`,
+  },
 };
-const CAPTIONS = window.CAPTIONS || [
-  [4.0, 5.5, 'הכירו את AgeNow'],
-  [5.55, 8.6, 'לוחצים על הפלוס, כותבים שם ותאריך לידה…'],
-  [8.85, 12.25, 'ובום! שנים, חודשים וימים — ברגע אחד'],
-  [12.4, 16.1, 'מוסיפים עד 5 אנשים: הילדים, בן הזוג, סבתא'],
-  [16.1, 17.75, 'כל אחד בלשונית משלו'],
-  [17.85, 20.55, 'והכול נשמר רק אצלכם, בטלפון'],
-]; // on-screen text already says the hook and the end card, so no captions there
-
-const PEOPLE = [
-  { name: 'נועה', born: '14/03/2016', age: [10, 7, 6] },
-  { name: 'איתי', born: '02/07/2012', age: [14, 3, 18] },
-  { name: 'יואב', born: '23/11/1988', age: [37, 10, 27] },
-  { name: 'סבתא רחל', born: '05/01/1951', age: [75, 9, 15] },
-  { name: 'אני', born: '08/08/1990', age: [36, 2, 12] },
-];
+const LANG = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'he';
+const C = CONTENT[LANG];
+const T = C.T;
+const CAPTIONS = C.captions;
+const PEOPLE = C.people;
+const RTL = C.dir === 'rtl';
 
 const $ = id => document.getElementById(id);
+
+document.documentElement.lang = LANG;
+document.documentElement.dir = C.dir;
+for (const [id, html] of Object.entries(C.html)) $(id).innerHTML = html;
+$('in2').style.justifyContent = RTL ? 'flex-end' : 'flex-start';
 const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
 const prog = (t, a, d) => clamp((t - a) / d);
 const easeOut = p => 1 - Math.pow(1 - p, 3);
@@ -319,8 +377,10 @@ function render(t) {
   if (c) $('capt').textContent = c[2];
 }
 
-// Positions inside #screen (px) for the tap indicator
-const POS = { plus: [36, 172], add: [236, 435] };
+// Positions inside #screen (px) for the tap indicator, measured in RTL and mirrored for LTR
+const SCREEN_W = 326;
+const mirror = ([x, y]) => RTL ? [x, y] : [SCREEN_W - x, y];
+const POS = { plus: mirror([36, 172]), add: mirror([236, 435]) };
 
 function renderApp(t) {
   // which people exist and who is active
@@ -367,7 +427,7 @@ function renderApp(t) {
     $('ny').textContent = Math.round(p.age[0] * k);
     $('nm').textContent = Math.round(p.age[1] * k);
     $('nd').textContent = Math.round(p.age[2] * k);
-    $('born').textContent = 'תאריך לידה: ' + p.born;
+    $('born').textContent = C.born(p.born);
     const pop = back(prog(t, switchAt, 0.4));
     $('person').style.transform = `scale(${0.9 + 0.1 * pop})`;
     $('person').style.opacity = clamp(pop * 1.5);
@@ -379,7 +439,7 @@ function renderApp(t) {
   $('overlay').style.display = mo ? 'flex' : 'none';
   $('overlay').style.opacity = mIn;
   $('modal').style.transform = `translateY(${30 * (1 - mIn)}px)`;
-  const name = PEOPLE[0].name, date = PEOPLE[0].born;
+  const name = PEOPLE[0].name, date = PEOPLE[0].typed;
   const nChars = Math.floor(clamp((t - T.typeName) / 0.6) * name.length);
   const dChars = Math.floor(clamp((t - T.typeDate) / 0.8) * date.length);
   const caret = Math.floor(t * 2.5) % 2 === 0 ? '<span class="caret"></span>' : '';
@@ -393,7 +453,7 @@ function renderApp(t) {
   // toast for the first result
   const toastOn = win(t, T.result + 0.2, T.adds[0] - 0.2, 0.25);
   const a = PEOPLE[0].age;
-  $('toast').textContent = `גיל ${a[0]}, ${a[1]} חודשים, ${a[2]} ימים`;
+  $('toast').textContent = C.toast(a);
   $('toast').style.opacity = toastOn;
   $('toast').style.transform = `translateX(-50%) translateY(${16 * (1 - toastOn)}px)`;
 

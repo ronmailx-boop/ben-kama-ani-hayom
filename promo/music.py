@@ -4,7 +4,8 @@ Writes music.wav (44.1 kHz stereo, 25 s). The arrangement follows the scene
 times in promo.html: ticking clock under the hook, the beat drops on the logo,
 drums step out for the privacy line, and a final hit lands on the end card.
 
-Usage: python3 music.py [out.wav]
+Usage: python3 music.py [out.wav] [drop break end_hit]
+(the three scene times default to the Hebrew promo; pass the English ones for ?lang=en)
 """
 import sys
 import wave
@@ -16,11 +17,10 @@ DUR = 25.0
 N = int(SR * DUR)
 
 # Scene times (seconds) from promo.html
-DROP = 3.9        # logo
-BREAK = 17.85     # privacy
-END_HIT = 20.6    # end card
+DROP, BREAK, END_HIT = (float(x) for x in sys.argv[2:5]) if len(sys.argv) > 4 else (3.9, 17.85, 20.6)
+# logo, privacy, end card
 
-BAR = 1.993       # 7 bars from DROP to BREAK (~120 BPM)
+BAR = (BREAK - DROP) / 7   # 7 bars from DROP to BREAK (~120 BPM)
 BEAT = BAR / 4
 
 rng = np.random.default_rng(7)

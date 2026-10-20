@@ -56,8 +56,12 @@ function applyLanguage() {
     el.title = t[el.dataset.i18nLabel];
     el.setAttribute('aria-label', t[el.dataset.i18nLabel]);
   });
-  // The usage guide video is narrated in Hebrew
-  if (LANG !== 'he') document.getElementById('helpBtn').classList.add('hidden');
+  // Usage guide video narrated in the same language
+  if (LANG === 'en') {
+    const video = document.getElementById('guideVideo');
+    video.src = 'media/guide-en.mp4';
+    video.poster = 'media/guide-poster-en.jpg';
+  }
 }
 
 // ── State ──────────────────────────────────────────────────────────────────
