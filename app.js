@@ -13,6 +13,7 @@ const STRINGS = {
     name: 'שם', namePlaceholder: 'לדוגמה: דנה',
     birthdate: 'תאריך לידה',
     add: 'הוסף', cancel: 'ביטול', close: 'סגור',
+    privacy: 'מדיניות פרטיות',
     bornOn: date => '📅 תאריך לידה: ' + date,
     agePopup: (y, m, d) => `גיל ${y}, ${m} חודשים, ${d} ימים`,
     added: name => `${name} נוסף/ה בהצלחה! 🎉`,
@@ -33,6 +34,7 @@ const STRINGS = {
     name: 'Name', namePlaceholder: 'e.g. Dana',
     birthdate: 'Date of birth',
     add: 'Add', cancel: 'Cancel', close: 'Close',
+    privacy: 'Privacy policy',
     bornOn: date => '📅 Born: ' + date,
     agePopup: (y, m, d) => `Age ${y} · ${m} ${m === 1 ? 'month' : 'months'} · ${d} ${d === 1 ? 'day' : 'days'}`,
     added: name => `${name} added! 🎉`,
@@ -56,8 +58,9 @@ function applyLanguage() {
     el.title = t[el.dataset.i18nLabel];
     el.setAttribute('aria-label', t[el.dataset.i18nLabel]);
   });
-  // Usage guide video narrated in the same language
+  // Usage guide video and privacy policy in the same language
   if (LANG === 'en') {
+    document.getElementById('privacyLink').href = 'privacy-policy-en.html';
     const video = document.getElementById('guideVideo');
     video.src = 'media/guide-en.mp4';
     video.poster = 'media/guide-poster-en.jpg';
