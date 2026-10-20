@@ -44,9 +44,28 @@ body {
 }
 
 header {
+  position: relative;
   text-align: center;
   margin-bottom: 2.2rem;
 }
+
+/* Usage guide: a quiet "?" in the header corner */
+.help-btn {
+  position: absolute;
+  top: 0; left: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.15);
+  color: var(--muted);
+  font-family: 'Heebo', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.help-btn:hover { border-color: var(--accent); color: var(--accent); }
 header h1 {
   font-family: 'Secular One', sans-serif;
   font-size: 2.4rem;
@@ -262,6 +281,36 @@ header h1 {
   transition: border 0.2s, color 0.2s;
 }
 .btn-cancel:hover { border-color: var(--accent2); color: var(--accent2); }
+
+/* Guide video */
+.guide {
+  position: relative;
+  width: min(92vw, 380px);
+  animation: slideUp 0.25s ease;
+}
+.guide video {
+  display: block;
+  width: 100%;
+  max-height: 82vh;
+  aspect-ratio: 9 / 16;
+  object-fit: contain;
+  background: #000;
+  border-radius: var(--radius);
+  box-shadow: 0 16px 60px rgba(0,0,0,0.6);
+}
+.guide-close {
+  position: absolute;
+  top: -14px; left: -14px;
+  z-index: 1;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
 
 /* Popup toast */
 .popup {
