@@ -8,7 +8,9 @@ Playwright and muxes them with the voiceover through ffmpeg.
   `CAPTIONS`; both are tuned to the word timings of `voiceover.mp3`.
   Open `promo.html?t=9.5` in a browser to see a single frame.
 - `voiceover.mp3` — Hebrew male narrator ("Omer", ElevenLabs `eleven_v4`).
-- `render.js` — `node render.js voiceover.mp3 agenow-promo.mp4`
+- `music.py` — background music synthesized in code (numpy), arranged to
+  the scene times: `python3 music.py music.wav`.
+- `render.js` — `node render.js voiceover.mp3 music.wav agenow-promo.mp4`
   (needs Playwright with Chromium and ffmpeg; about 5 minutes).
 
 The folder is listed in `.assetsignore`, so it is not uploaded to the site.
