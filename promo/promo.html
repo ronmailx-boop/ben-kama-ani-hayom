@@ -100,7 +100,6 @@
   #end .row { display: flex; align-items: center; gap: 2px; direction: ltr; }
   #end .tag { font-family: 'Secular One', sans-serif; font-size: 40px; }
   #end .tag span { color: var(--accent); }
-  #end .url { direction: ltr; font-size: 26px; font-weight: 700; color: var(--bg); background: var(--cream); padding: 12px 26px; border-radius: 40px; }
 
   /* Captions */
   #cap { position: absolute; left: 30px; right: 30px; bottom: 74px; text-align: center; }
@@ -219,7 +218,6 @@
       </div>
     </div>
     <div class="tag" id="etag">הגיל שלכם — <span>עכשיו.</span></div>
-    <div class="url" id="eurl">agenow.vplusstudio.app</div>
   </div>
 
   <div id="cap"><span id="capt"></span></div>
@@ -313,8 +311,6 @@ function render(t) {
   const pe = back(prog(t, T.end, 0.6));
   $('eicon').style.transform = `scale(${0.6 + 0.4 * pe})`;
   $('etag').style.opacity = easeOut(prog(t, T.end + 0.4, 0.4));
-  $('eurl').style.opacity = easeOut(prog(t, T.end + 0.8, 0.4));
-  $('eurl').style.transform = `translateY(${16 * (1 - easeOut(prog(t, T.end + 0.8, 0.4)))}px)`;
   rotateHand($('em'), 116 + 360 * (1 - easeOut(prog(t, T.end, 1.2))), 22);
 
   // Captions
