@@ -33,7 +33,7 @@
 
   <div class="container">
     <header>
-      <button class="help-btn" id="helpBtn" type="button" aria-label="איך משתמשים?" title="איך משתמשים?">?</button>
+      <button class="help-btn" id="helpBtn" type="button" data-i18n-label="help" aria-label="איך משתמשים?" title="איך משתמשים?">?</button>
       <h1>
         <svg class="logo-clock" viewBox="0 0 116 116" aria-hidden="true">
           <circle cx="58" cy="58" r="47" fill="#fdf4e3" stroke="#0f0e17" stroke-width="16" />
@@ -43,20 +43,20 @@
         </svg>
         AgeNow
       </h1>
-      <p class="subtitle">הוסף אנשים וגלה את גילם המדויק</p>
+      <p class="subtitle" data-i18n="subtitle">הוסף אנשים וגלה את גילם המדויק</p>
     </header>
 
     <!-- Tabs -->
     <div class="tabs-wrapper">
       <div class="tabs" id="tabs"></div>
-      <button class="add-btn" id="addBtn" title="הוסף אדם">+</button>
+      <button class="add-btn" id="addBtn" data-i18n-label="addPerson" title="הוסף אדם">+</button>
     </div>
 
     <!-- Content area -->
     <div class="card" id="mainCard">
       <div id="emptyState" class="empty-state">
         <div class="empty-icon">👤</div>
-        <p>לחץ על <strong>+</strong> כדי להוסיף אדם ראשון</p>
+        <p><span data-i18n="emptyBefore">לחץ על</span> <strong>+</strong> <span data-i18n="emptyAfter">כדי להוסיף אדם ראשון</span></p>
       </div>
       <div id="personView" class="person-view hidden">
         <div class="avatar" id="personAvatar"></div>
@@ -64,21 +64,21 @@
         <div class="age-display" id="ageDisplay">
           <div class="age-block">
             <span class="age-number" id="ageYears">0</span>
-            <span class="age-label">שנים</span>
+            <span class="age-label" data-i18n="years">שנים</span>
           </div>
           <div class="age-sep">·</div>
           <div class="age-block">
             <span class="age-number" id="ageMonths">0</span>
-            <span class="age-label">חודשים</span>
+            <span class="age-label" data-i18n="months">חודשים</span>
           </div>
           <div class="age-sep">·</div>
           <div class="age-block">
             <span class="age-number" id="ageDays">0</span>
-            <span class="age-label">ימים</span>
+            <span class="age-label" data-i18n="days">ימים</span>
           </div>
         </div>
         <div class="birthdate-label" id="birthdateLabel"></div>
-        <button class="delete-btn" id="deleteBtn">🗑 הסר</button>
+        <button class="delete-btn" id="deleteBtn" data-i18n="remove">🗑 הסר</button>
       </div>
     </div>
   </div>
@@ -86,17 +86,17 @@
   <!-- Modal -->
   <div class="modal-overlay hidden" id="modalOverlay">
     <div class="modal">
-      <h3>➕ הוסף אדם חדש</h3>
-      <label>שם
-        <input type="text" id="inputName" placeholder="לדוגמה: דנה" maxlength="20" />
+      <h3 data-i18n="modalTitle">➕ הוסף אדם חדש</h3>
+      <label><span data-i18n="name">שם</span>
+        <input type="text" id="inputName" data-i18n-placeholder="namePlaceholder" placeholder="לדוגמה: דנה" maxlength="20" />
       </label>
-      <label>תאריך לידה
+      <label><span data-i18n="birthdate">תאריך לידה</span>
         <input type="date" id="inputDate" />
       </label>
       <p class="modal-error hidden" id="modalError"></p>
       <div class="modal-actions">
-        <button class="btn-confirm" id="confirmBtn">הוסף</button>
-        <button class="btn-cancel" id="cancelBtn">ביטול</button>
+        <button class="btn-confirm" id="confirmBtn" data-i18n="add">הוסף</button>
+        <button class="btn-cancel" id="cancelBtn" data-i18n="cancel">ביטול</button>
       </div>
     </div>
   </div>
@@ -104,7 +104,7 @@
   <!-- Usage guide video -->
   <div class="modal-overlay hidden" id="guideOverlay">
     <div class="guide">
-      <button class="guide-close" id="guideClose" type="button" aria-label="סגור">✕</button>
+      <button class="guide-close" id="guideClose" type="button" data-i18n-label="close" aria-label="סגור">✕</button>
       <video id="guideVideo" src="media/guide.mp4?v=2" poster="media/guide-poster.jpg" controls playsinline preload="none"></video>
     </div>
   </div>

@@ -52,7 +52,7 @@ header {
 /* Usage guide: a quiet "?" in the header corner */
 .help-btn {
   position: absolute;
-  top: 0; left: 0;
+  top: 0; inset-inline-end: 0;
   width: 32px; height: 32px;
   border-radius: 50%;
   background: transparent;
@@ -250,7 +250,6 @@ header h1 {
   font-size: 1rem;
   outline: none;
   transition: border 0.2s;
-  direction: rtl;
 }
 .modal input:focus { border-color: var(--accent); }
 .modal-error { color: #ff6b6b; font-size: 0.85rem; margin-bottom: 0.5rem; }
@@ -300,7 +299,7 @@ header h1 {
 }
 .guide-close {
   position: absolute;
-  top: -14px; left: -14px;
+  top: -14px; inset-inline-end: -14px;
   z-index: 1;
   width: 36px; height: 36px;
   border-radius: 50%;
