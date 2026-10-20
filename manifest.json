@@ -1,8 +1,8 @@
 {
-  "name": "בן כמה אני היום?",
-  "short_name": "כמה גיל?",
+  "name": "AgeNow",
+  "short_name": "AgeNow",
   "description": "חשב את גילך המדויק בשנים, חודשים וימים",
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#0f0e17",
   "theme_color": "#f7a823",

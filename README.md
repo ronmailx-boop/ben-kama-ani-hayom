@@ -1,4 +1,4 @@
-# 🎂 בן כמה אני היום?
+# 🎂 AgeNow
 
 אפליקציית ווב פשוטה שמחשבת גיל מדויק לפי תאריך לידה — בשנים, חודשים וימים.
 
@@ -28,6 +28,15 @@ ben-kama-ani-hayom/
    git clone https://github.com/YOUR_USERNAME/ben-kama-ani-hayom.git
    ```
 2. פתח את `index.html` בדפדפן — לא נדרש שרת.
+
+## ☁️ כתובת האפליקציה (Cloudflare)
+
+האפליקציה זמינה בכתובת **https://agenow.vplusstudio.app**
+(וגם `https://agenow.ronmailx.workers.dev`).
+
+כל push ל-`main` מעלה אותה אוטומטית דרך ה-workflow `Deploy to Cloudflare`
+(`.github/workflows/deploy-cloudflare.yml` + `wrangler.jsonc`).
+דורש Secret בשם `CLOUDFLARE_API_TOKEN` בריפו — בלעדיו הפריסה מדלגת.
 
 ## 🌐 פריסה עם GitHub Pages
 
