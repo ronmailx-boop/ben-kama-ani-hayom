@@ -101,16 +101,17 @@ header h1 {
   width: 42px; height: 42px;
   border-radius: 50%;
   border: none;
-  background: var(--accent2);
-  color: #fff;
+  background: #fdf4e3;
+  color: #0f0e17;
   font-size: 1.6rem;
+  font-weight: 700;
   line-height: 1;
   cursor: pointer;
   flex-shrink: 0;
   transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 0 16px rgba(232,67,147,0.4);
+  box-shadow: 0 0 16px rgba(253,244,227,0.25);
 }
-.add-btn:hover { transform: scale(1.12); box-shadow: 0 0 24px rgba(232,67,147,0.6); }
+.add-btn:hover { transform: scale(1.12); box-shadow: 0 0 24px rgba(253,244,227,0.4); }
 .add-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
 /* Card */
