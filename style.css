@@ -54,6 +54,12 @@ header h1 {
   color: var(--accent);
   text-shadow: 0 0 30px rgba(247,168,35,0.35);
 }
+.logo-clock {
+  width: 0.9em;
+  height: 0.9em;
+  vertical-align: -0.1em;
+  filter: drop-shadow(0 0 12px rgba(247,168,35,0.35));
+}
 .subtitle { color: var(--muted); margin-top: 0.35rem; font-size: 1rem; }
 
 /* Tabs */
