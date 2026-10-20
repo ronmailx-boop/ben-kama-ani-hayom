@@ -1,3 +1,65 @@
+// ── Language ────────────────────────────────────────────────────────────────
+// Hebrew for devices set to Hebrew, English for everyone else.
+const STRINGS = {
+  he: {
+    subtitle: 'הוסף אנשים וגלה את גילם המדויק',
+    help: 'איך משתמשים?',
+    addPerson: 'הוסף אדם',
+    emptyBefore: 'לחץ על',
+    emptyAfter: 'כדי להוסיף אדם ראשון',
+    years: 'שנים', months: 'חודשים', days: 'ימים',
+    remove: '🗑 הסר',
+    modalTitle: '➕ הוסף אדם חדש',
+    name: 'שם', namePlaceholder: 'לדוגמה: דנה',
+    birthdate: 'תאריך לידה',
+    add: 'הוסף', cancel: 'ביטול', close: 'סגור',
+    bornOn: date => '📅 תאריך לידה: ' + date,
+    agePopup: (y, m, d) => `גיל ${y}, ${m} חודשים, ${d} ימים`,
+    added: name => `${name} נוסף/ה בהצלחה! 🎉`,
+    errName: 'נא להזין שם',
+    errDate: 'נא לבחור תאריך לידה',
+    errFuture: 'תאריך לידה לא יכול להיות בעתיד',
+    errMax: max => `ניתן להוסיף עד ${max} אנשים`,
+  },
+  en: {
+    subtitle: 'Add people and see their exact age',
+    help: 'How to use',
+    addPerson: 'Add person',
+    emptyBefore: 'Tap',
+    emptyAfter: 'to add your first person',
+    years: 'years', months: 'months', days: 'days',
+    remove: '🗑 Remove',
+    modalTitle: '➕ Add a person',
+    name: 'Name', namePlaceholder: 'e.g. Dana',
+    birthdate: 'Date of birth',
+    add: 'Add', cancel: 'Cancel', close: 'Close',
+    bornOn: date => '📅 Born: ' + date,
+    agePopup: (y, m, d) => `Age ${y} · ${m} ${m === 1 ? 'month' : 'months'} · ${d} ${d === 1 ? 'day' : 'days'}`,
+    added: name => `${name} added! 🎉`,
+    errName: 'Please enter a name',
+    errDate: 'Please pick a date of birth',
+    errFuture: "Date of birth can't be in the future",
+    errMax: max => `You can add up to ${max} people`,
+  },
+};
+
+const LANG = /^(he|iw)\b/i.test(navigator.language || '') ? 'he' : 'en';
+const t = STRINGS[LANG];
+applyLanguage();
+
+function applyLanguage() {
+  document.documentElement.lang = LANG;
+  document.documentElement.dir = LANG === 'he' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t[el.dataset.i18n]; });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t[el.dataset.i18nPlaceholder]; });
+  document.querySelectorAll('[data-i18n-label]').forEach(el => {
+    el.title = t[el.dataset.i18nLabel];
+    el.setAttribute('aria-label', t[el.dataset.i18nLabel]);
+  });
+  // The usage guide video is narrated in Hebrew
+  if (LANG !== 'he') document.getElementById('helpBtn').classList.add('hidden');
+}
+
 // ── State ──────────────────────────────────────────────────────────────────
 const MAX_PEOPLE = 5;
 const STORAGE_KEY = 'benKamaAni_people';
@@ -89,7 +151,7 @@ function renderCard() {
   ageYears.textContent  = years;
   ageMonths.textContent = months;
   ageDays.textContent   = days;
-  birthdateLabel.textContent = '📅 תאריך לידה: ' + formatDate(p.birthdate);
+  birthdateLabel.textContent = t.bornOn(formatDate(p.birthdate));
 }
 
 // ── Handlers ─────────────────────────────────────────────────────────────────
@@ -101,16 +163,16 @@ function selectPerson(id) {
   // Show popup
   const p = people.find(x => x.id === id);
   const { years, months, days } = calcAge(p.birthdate);
-  showPopup(`גיל ${years}, ${months} חודשים, ${days} ימים`);
+  showPopup(t.agePopup(years, months, days));
 }
 
 function handleAdd() {
   const name = inputName.value.trim();
   const date = inputDate.value;
-  if (!name) return showError('נא להזין שם');
-  if (!date) return showError('נא לבחור תאריך לידה');
-  if (new Date(date) > new Date()) return showError('תאריך לידה לא יכול להיות בעתיד');
-  if (people.length >= MAX_PEOPLE) return showError(`ניתן להוסיף עד ${MAX_PEOPLE} אנשים`);
+  if (!name) return showError(t.errName);
+  if (!date) return showError(t.errDate);
+  if (new Date(date) > new Date()) return showError(t.errFuture);
+  if (people.length >= MAX_PEOPLE) return showError(t.errMax(MAX_PEOPLE));
 
   const id = Date.now().toString();
   people.push({ id, name, birthdate: date });
@@ -119,7 +181,7 @@ function handleAdd() {
   closeModal();
   render();
 
-  showPopup(`${name} נוסף/ה בהצלחה! 🎉`);
+  showPopup(t.added(name));
 }
 
 function handleDelete() {
@@ -197,7 +259,8 @@ function todayStr() {
 
 function formatDate(str) {
   const [y, m, d] = str.split('-');
-  return `${d}/${m}/${y}`;
+  if (LANG === 'he') return `${d}/${m}/${y}`;
+  return new Date(+y, m - 1, +d).toLocaleDateString(navigator.language || 'en', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
 function nameToEmoji(name) {
