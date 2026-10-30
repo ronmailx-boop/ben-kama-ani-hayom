@@ -18,6 +18,8 @@ ben-kama-ani-hayom/
 ├── index.html   # מבנה האפליקציה
 ├── style.css    # עיצוב
 ├── app.js       # לוגיקה וחישוב גיל
+├── sw.js        # Service Worker — עבודה גם בלי אינטרנט
+├── manifest.json # הגדרות PWA (אייקונים, צילומי מסך)
 └── README.md
 ```
 
