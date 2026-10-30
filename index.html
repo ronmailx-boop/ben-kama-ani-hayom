@@ -120,7 +120,24 @@
 
   <script src="app.js"></script>
 
-  <!-- Cloudflare Web Analytics: anonymous visit counts, no cookies -->
-  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "6112fd9998754722afa9916fab7ef203"}'></script>
+  <!-- Cloudflare Web Analytics: anonymous visit counts, no cookies.
+       Not loaded in the Google Play app, whose listing declares no data collected.
+       The Play app opens ./?source=twa; the flag lasts for the app session. -->
+  <script>
+    (function () {
+      let inPlayApp = new URLSearchParams(location.search).get('source') === 'twa' ||
+        document.referrer.startsWith('android-app://');
+      try {
+        if (inPlayApp) sessionStorage.setItem('agenow_play_app', '1');
+        else inPlayApp = sessionStorage.getItem('agenow_play_app') === '1';
+      } catch {}
+      if (inPlayApp) return;
+      const beacon = document.createElement('script');
+      beacon.defer = true;
+      beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+      beacon.dataset.cfBeacon = '{"token": "6112fd9998754722afa9916fab7ef203"}';
+      document.body.appendChild(beacon);
+    })();
+  </script>
 </body>
 </html>
