@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.vplusstudio.agenow",
+      "sha256_cert_fingerprints": [
+        "16:7A:4C:92:6F:33:E4:D5:D7:84:86:B6:86:DD:C7:E7:DE:36:70:B2:B5:61:0F:4C:7D:FA:DE:A1:77:DD:B2:28"
+      ]
+    }
+  }
+]
