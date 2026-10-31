@@ -100,5 +100,7 @@ AgeNow מראה את הגיל המדויק של האנשים שחשובים לך
 |---|---|
 | Category | Tools |
 | Contact email | vplusstudio.app@gmail.com |
-| Website | https://agenow.vplusstudio.app |
+| Website | https://vplusstudio.app |
 | Privacy policy | https://agenow.vplusstudio.app/privacy-policy-en |
+| Video (en-US) | https://www.youtube.com/watch?v=4hKBEjRzuN4 |
+| Video (iw-IL) | https://www.youtube.com/watch?v=vU1NUosgcbY |
